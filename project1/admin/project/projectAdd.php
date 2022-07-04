@@ -179,7 +179,7 @@
 								</fieldset>
 
 								<div class="text-right">
-								<button type="submit" class="btn btn-primary" name="submitProject">Submit <i class="icon-arrow-right14 position-right"></i></button>
+								<button type="submit" class="btn btn-primary" name="saveProject">Submit <i class="icon-arrow-right14 position-right"></i></button>
 
 									<a href="projectList.php" class="btn btn-primary"><i class=" icon-arrow-left13 position-right"></i> Back</a>
 

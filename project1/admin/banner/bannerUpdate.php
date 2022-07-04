@@ -12,7 +12,6 @@
  	include '../includes/head.php'; 
 ?>
 
-<?php include "../includes/head.php"; ?>
 
 <body>
 
@@ -116,7 +115,7 @@
 									$getSingleDataQry = "SELECT * FROM banners WHERE id='{$banner_id}'";
 									$getResult = mysqli_query($dbCon,$getSingleDataQry);
 								 ?>
-								<form class="form-horizontal" action="../controller/bannerController.php" method="post">
+								<form class="form-horizontal" action="../controller/bannerController.php" method="post" enctype="multipart/form-data">
 								<fieldset class="content-group mt-5">
 
 								<?php
@@ -161,13 +160,30 @@
 										</div>
 									</div>
 
+									<!-- image update -->
+
 									<div class="form-group">
-										<label class="control-label col-lg-2" for="image">Image</label>
-										<div class="col-lg-10">
-											<input type="file" class="file-styled" id="image" name="image">
+											<label class="col-lg-2 control-label text-semibold" for="image">Image</label>
+											<div class="col-lg-10">
+												<input type="file" name="image" class="file-input-extensions" id="image">
+												<span class="help-block">Allow extensions: <code>jpg</code>, <code>png</code> and <code>jpeg</code> and  Allow Size: <code>640 * 426</code> Only</span>
+
+
+												<div class="file-preview" id="custom_file_preview">
+													<div class="close fileinput-remove text-right" id="custom_close">×</div>
+													<div class="file-preview-thumbnails">
+														<div class="file-preview-frame" id="preview-1603644588432-0">
+															<img src="<?php echo '../uploads/bannerImage/'.$banner['image']; ?>" class="file-preview-image" title="" alt="" style="width:auto;height:160px;">
+														</div>
+													</div>
+													<div class="clearfix"></div>   
+													<div class="file-preview-status text-center text-success"></div>
+													<div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+												</div>
+											</div>
 										</div>
-									</div>
 							
+								
 
 									<?php } ?>
 

@@ -1,103 +1,127 @@
 <?php
+    require 'dbConfig.php';
 
-require 'dbconfig.php';
+   // Banner add
+    if (isset($_POST['saveBanner'])) {
 
+        $upload_status = false;
+        if (isset($_FILES['image'])) {
+            $imgArray = $_FILES['image'];
+            $file_name = $imgArray['name'];
+            $tmp_file_name = $imgArray['tmp_name'];
 
-// Banner add
-if (isset($_POST['submitBanner'])){
+            $nameExtArr = explode('.', $file_name);
+            $file_extension = strtolower(end($nameExtArr));
+            $valid_extensions = array('jpg', 'png', 'jpeg');
 
+            $random_file_name = time().'.'.$file_extension;
 
-    // For image
-    $upload_status = false;
-
-    if (isset( $_FILES['image'])) {
-        // echo "<pre>";
-        // print_r ($_FILES['image']);
-        // echo "</pre>";
-        
-        $ImageArr = $_FILES['image'];
-
-        $file_name = $ImageArr ['name'];
-        $file_tmp_name = $ImageArr ['tmp_name'];
-        $file_size = $ImageArr ['size'];   //For size
-
-        $nameExtArr=explode('.',$file_name);
-        $file_extension= strtolower(end($nameExtArr));
-        $valid_extension = array('jpg','png','jpeg','gif');
-
-         $random_file_name = time().".".$file_extension;  //for random name generate
-
-        if (in_array($file_extension,$valid_extension)) {
-            move_uploaded_file($file_tmp_name, '../uploads/bannerImage/'.$random_file_name);
-            $upload_status = true;
-        }else{
-             $message= $File_extension. " is not valid" ;
+            if (in_array($file_extension, $valid_extensions)) {
+                move_uploaded_file($tmp_file_name, '../uploads/bannerImage/'.$random_file_name);
+                $upload_status = true;
+            } else {
+                $message = $file_extension." is not Supported";
+            }
+        } else {
+            $message = "File Not Found";
         }
-    }
-    else{
-         $message= "File Not found";
-    }
+        
+        $title     = $_POST['title'];
+        $sub_title = $_POST['sub_title'];
+        $details   = $_POST['details'];
 
+        if (empty($title) || empty($sub_title) || empty($details) || $upload_status == false) {
+            $message = "All fields are required";
+        } else {
+            $insertQry = "INSERT INTO banners (title, sub_title, details, image) VALUES ('{$title}', '{$sub_title}', '{$details}', '{$random_file_name}')";
+            $isSubmit = mysqli_query($dbCon, $insertQry);
 
-    // Image end
+            if ($isSubmit == true) {
+                $message = "Banner Insert Succesfull";
+            } else {
+                $message = "Insert Failed";
+            }
+        }
 
-
-    $title     = $_POST["title"];
-    $sub_title = $_POST["sub_title"];
-    $details   = $_POST["details"];
-
-    // For backend validation
-    if(empty($title) || empty($sub_title) || empty($details) || $upload_status==false) {
-        $message= "All field are required";
-    }
-    else{
-        $insertQry = "INSERT INTO banners (title, sub_title, details, image) VALUES ('{$title}', '{$sub_title}', '{$details}','{$random_file_name}')";
-       $isSubmit = mysqli_query($dbCon,$insertQry);
-
-       if ($isSubmit==true) {
-        $message = "Banner Insert Successfull";
-       } else {
-        $message = "Banner Insert Failed";
-       }
+        header("Location:../banner/bannerList.php?msg={$message}");
+        
     }
 
-       header("Location:../banner/bannerAdd.php?msg={$message}");
-       
 
-}
+    // THIS FOR UPDATE
+    if (isset($_POST['updateBanner'])) {
+        
+        // GET THE IMAGE NAME
+        $banner_id = $_POST['banner_id'];
+        $getSingleDataQry = "SELECT * FROM banners WHERE id={$banner_id}";
+        $getResult = mysqli_query($dbCon, $getSingleDataQry);
+        
+        $oldImg = '';
+        foreach ($getResult as $key => $banner) {
+            $oldImg = $banner['image'];
+        }
+        // END GET THE IMAGE NAME
 
 
+        $upload_status = false;
+        if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
 
-// Update banner 
+            $imgArray = $_FILES['image'];
+            $file_name = $imgArray['name'];
+            $tmp_file_name = $imgArray['tmp_name'];
 
-if (isset($_POST['updateBanner'])){
+            $nameExtArr = explode('.', $file_name);
+            $file_extension = strtolower(end($nameExtArr));
+            $valid_extensions = array('jpg', 'png', 'jpeg');
 
-    $banner_id = $_POST['banner_id'];
-    $title     = $_POST['title'];
-    $sub_title = $_POST['sub_title'];
-    $details   = $_POST['details'];
+            $random_file_name = time().'.'.$file_extension;
 
-    // For backend validation
-    if(empty($title) || empty($sub_title) || empty($details)){
-        $message= "All field are required";
-    }
-    else{
+            if ($random_file_name != $oldImg) { //WHEN NEW IMAGE NAME DOES NOT MATCH WITH OLD IMAGE
+                
+                //IMAGE FILE REMOVE
+                $file = '../uploads/bannerImage/'.$oldImg;
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+                // Image FILE REMOVE End
 
-        $updateQry ="UPDATE banners SET title='{$title}', sub_title='{$sub_title}', details='{$details}' WHERE id='{$banner_id}'";
-       $isSubmit = mysqli_query($dbCon, $updateQry);
+                // NEW FILE UPLOAD
+                if (in_array($file_extension, $valid_extensions)) {
+                    move_uploaded_file($tmp_file_name, '../uploads/bannerImage/'.$random_file_name);
+                    $upload_status = true;
+                } else {
+                    $message = $file_extension." is not Supported";
+                }
 
-       if ($isSubmit==true) {
-        $message = "Banner Update Successfull";
-       } else {
-        $message = "Banner Update Failed";
-       }
-    }
+            }
+        } else {
+            $random_file_name = $oldImg;
+        }
 
+
+        $banner_id = $_POST['banner_id'];
+        $title     = $_POST['title'];
+        $sub_title = $_POST['sub_title'];
+        $details   = $_POST['details'];
+
+        if (empty($title) || empty($sub_title) || empty($details)) {
+            $message = "All fields are required";
+        } else {
+            $updateQry = "UPDATE banners SET title='{$title}', sub_title='{$sub_title}', details='{$details}', image='{$random_file_name}' WHERE id='{$banner_id}'";
+
+            $isSubmit = mysqli_query($dbCon, $updateQry);
+
+            if ($isSubmit == true) {
+                $message = "Banner Update Succesfull";
+            } else {
+                $message = "Update Failed";
+            }
+        }
+        
     // For banner update page redirection
     //    header("Location:../banner/bannerUpdate.php?banner_id={$banner_id}&msg={$message}");
 
     // For Banner list page redirection
        header("Location:../banner/bannerList.php?msg={$message}");
-       
-
-}
+        
+    }

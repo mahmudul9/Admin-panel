@@ -148,18 +148,28 @@
 										</div>
 									</div>
 
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="control-label col-lg-2" for="image">Image</label>
 										<div class="col-lg-10">
 											<input type="file" class="file-styled" id="image" name="image">
 										</div>
+									</div> -->
+
+									<!-- Image input -->
+									<div class="form-group">
+										<label class="col-lg-2 control-label text-semibold" for="image">Image</label>
+										<div class="col-lg-10">
+											<input type="file" name="image" class="file-input-extensions" id="image">
+											<span class="help-block">Allow extensions: <code>jpg</code>, <code>png</code> and <code>jpeg</code> and  Allow Size: <code>640 * 426</code> Only</span>
+										</div>
 									</div>
+									<!-- /Image input -->
 							
 
 								</fieldset>
 
 								<div class="text-right">
-								<button type="submit" class="btn btn-primary" name="submitBanner">Submit <i class="icon-arrow-right14 position-right"></i></button>
+								<button type="submit" class="btn btn-primary" name="saveBanner">Submit <i class="icon-arrow-right14 position-right"></i></button>
 
 									<a href="bannerList.php" class="btn btn-primary"><i class=" icon-arrow-left13 position-right"></i> Back</a>
 
@@ -170,18 +180,10 @@
 							</div>
 							</div>
 							<!-- /basic examples -->
-
-
 						</div>
 
 					</div>
 					<!-- /basic datatable -->
-
-
-
-
-
-
 
 					<!-- Footer -->
 					<div class="footer text-muted">

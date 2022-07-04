@@ -4,7 +4,7 @@ require 'dbconfig.php';
 
 
 // Project add
-if (isset($_POST['submitProject'])){
+if (isset($_POST['saveProject'])){
 
 
     // For project_thumb

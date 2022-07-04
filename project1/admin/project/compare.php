@@ -28,7 +28,7 @@
 					<div class="sidebar-user">
 						<div class="category-content">
 							<div class="media">
-								<a href="#" class="media-left"><img src="<?php echo $isInternal == true ? '../': ' ';?>assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+								<a href="#" class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
 								<div class="media-body">
 									<span class="media-heading text-semibold">Victoria Baker</span>
 									<div class="text-size-mini text-muted">
@@ -47,7 +47,7 @@
 						</div>
 					</div>
 					<!-- /user menu -->
-					<?php $manuName = basename(__DIR__); ?>
+
 					<?php include '../includes/navigation.php'; ?>
 
 				</div>
@@ -62,8 +62,8 @@
 				<div class="page-header">
 					<div class="breadcrumb-line">
 						<ul class="breadcrumb">
-							<li><a href="#"><i class="icon-file-text position-left"></i> Project</a></li>
-							<li class="active">Update</li>
+							<li><a href="#"><i class="icon-image-compare position-left"></i> Banner</a></li>
+							<li class="active">Create</li>
 						</ul>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 					<!-- Basic datatable -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Project Update</h5>
+							<h5 class="panel-title">Banner Create</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
 			                		<!-- <li><a data-action="collapse"></a></li>
@@ -87,13 +87,8 @@
 						</div>
 
 						<div class="panel-body">
-							<?php 
-								require '../controller/dbConfig.php';
-								$project_id = $_GET['project_id'];
-								$getSingleDataQry = "SELECT * FROM projects WHERE id={$project_id}";
-								$getResult = mysqli_query($dbCon, $getSingleDataQry);
-							?>
-							<form class="form-horizontal" action="../controller/ProjectController.php" method="post" enctype="multipart/form-data">
+
+							<form class="form-horizontal" action="../controller/BannerController.php" method="post" enctype="multipart/form-data">
 								<fieldset class="content-group mt-10">
 
 									<?php
@@ -105,66 +100,49 @@
 										</div>
 									<?php } ?>
 
-
-
-
-									<?php
-										foreach ($getResult as $key => $project) {
-									?>
-                                    
-										<input type="hidden" class="form-control" name="project_id" value="<?php echo $project['id']; ?>">
-
-
-
-										<div class="form-group">
-										<label class="control-label col-lg-2" for="category_id">Category</label>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="title">Title</label>
 										<div class="col-lg-10">
-
-											<select name="category_id" class="form-control" id="category_id">
-				                                <option value="">Select Category</option>
-
-												<?php 
-												require '../controller/dbConfig.php';
-												$dropdownSelectQry = "SELECT * FROM categories WHERE active_status=1";
-												$categoryList = mysqli_query($dbCon, $dropdownSelectQry);
-                                                
-													if (!empty($categoryList)) { 
-														foreach($categoryList as $category) { 
-															?>
-															<option value="<?php echo $category['id'];?>" <?php echo ($category['id']==$project['category_id'])?'selected="selected"':'';?>><?php echo $category['category_name'];?></option>
-												 		<?php
-														}
-													} 
-												?>
-				                            </select>
+											<input type="text" class="form-control" id="title" name="title">
 										</div>
 									</div>
-										<div class="form-group">
-											<label class="control-label col-lg-2" for="project_name">Project Name</label>
-											<div class="col-lg-10">
-												<input type="text" class="form-control" id="project_name" name="project_name" required value="<?php echo $project['project_name']; ?>">
-											</div>
-										</div>
 
-										<div class="form-group">
-											<label class="control-label col-lg-2" for="project_link">Project Link</label>
-											<div class="col-lg-10">
-												<input type="text" class="form-control" id="project_link" name="project_link" required value="<?php echo $project['project_link']; ?>">
-											</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="sub_title">Sub Title</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="sub_title" name="sub_title">
 										</div>
-										<div class="form-group">
-											<label class="control-label col-lg-2" for="project_thumb">Project Thumb</label>
-											<div class="col-lg-10">
-												<input type="hidden" class="form-control" id="oldImage" name="oldImage" value="<?php echo $project['project_thumb']; ?>">
-												<input type="file" class="form-control" id="project_thumb" name="project_thumb">
-											</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="details">Details</label>
+										<div class="col-lg-10">
+											<textarea rows="5" cols="5" class="form-control" placeholder="Default textarea" id="details" name="details"></textarea>
 										</div>
-									<?php } ?>
+									</div>
+
+									<!-- <div class="form-group">
+										<label class="control-label col-lg-2" for="image">Image</label>
+										<div class="col-lg-10">
+											<input type="file" class="form-control" id="image" name="image">
+										</div>
+									</div> -->
+
+									<!-- Image input -->
+									 <div class="form-group">
+										<label class="col-lg-2 control-label text-semibold" for="image">Image</label>
+										<div class="col-lg-10">
+											<input type="file" name="image" class="file-input-extensions" id="image">
+											<span class="help-block">Allow extensions: <code>jpg</code>, <code>png</code> and <code>jpeg</code> and  Allow Size: <code>640 * 426</code> Only</span>
+										</div>
+									</div>
+									<!-- /Image input -->
+
 								</fieldset>
 
 								<div class="text-right">
-									<button type="submit" class="btn btn-primary" name="updateProject">Submit</button>
-									<a href="projectsList.php" class="btn btn-default">Back To List </a>
+									<button type="submit" class="btn btn-primary" name="saveBanner">Submit</button>
+									<a href="bannerList.php" class="btn btn-default">Back To List </a>
 								</div>
 							</form>
 						</div>

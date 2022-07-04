@@ -119,10 +119,10 @@ else {
 
 									?>
 							
-									<div class="alert alert-success no-border">
-											<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-											<span class="text-semibold">Success</span> <?php echo $_GET['msg']; ?>
-										</div>
+							<div class="alert alert-success no-border">
+									<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+									<span class="text-semibold">Success</span> <?php echo $_GET['msg']; ?>
+								</div>
 								 
 								 <?php }  ?>
 					
@@ -153,7 +153,7 @@ else {
 									<td> <?php echo $banner["sub_title"];?> </td>
 									<td> <?php echo $banner["details"];?> </td>
 									<td>
-										<img class="img-responsive" width="100%" height="100%" src="<?php echo "../uploads/bannerImage/".$banner["image"];?>" />    
+										<img class="img-responsive" width="80" height="80" src="<?php echo "../uploads/bannerImage/".$banner["image"];?>" />    
 									</td> 
 
 									<td class="text-center">

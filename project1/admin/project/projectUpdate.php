@@ -190,7 +190,7 @@
 									<div class="form-group">
 										<label class="control-label col-lg-2" for="project_thumb">Project Thumb</label>
 										<div class="col-lg-10">
-											<input type="file" class="file-styled" id="project_thumb" name="project_thumb" value="<?php echo $project['project_thumb']; ?>">
+											<input type="file" class="file-styled" id="project_thumb" name="project_thumb">
 										</div>
 									</div>
 							
