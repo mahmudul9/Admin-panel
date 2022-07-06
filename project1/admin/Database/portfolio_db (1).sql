@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2022 at 06:08 PM
+-- Generation Time: Jul 06, 2022 at 04:29 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -53,7 +53,7 @@ INSERT INTO `banners` (`id`, `title`, `sub_title`, `details`, `image`, `active_s
 (10, 'test', 'test', 'test', '1656706005.png', 0),
 (11, 'test', 'test', '1656707127.png', '1656706056.png', 1),
 (12, 'rrr', 'rrrrrr', 'rrrrrrrrr', '1656707563.png', 1),
-(13, 'qqqqq', 'qqqqqqqqq', 'qqqqqqqqqqgfgf', '1656707835.png', 1);
+(13, 'qqqqq1', 'qqqqqqqqq1111', 'qqqqqqqqqqgfgf', '1657114171.png', 1);
 
 -- --------------------------------------------------------
 
@@ -95,8 +95,10 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `category_id`, `project_name`, `project_link`, `project_thumb`, `active_status`) VALUES
-(1, 1, 'Web design with PHP  language', 'http://localhost/PORTFOLIO%20PROJECT/project1/admin/project/projectAdd.php', '', 1),
-(2, 2, 'Graphic design', 'http://localhost/PORTFOLIO%20PROJECT/project1/admin/project/projectAdd.php', '1656659077.png', 1);
+(1, 1, 'Web design with PHP  language', 'http://localhost/PORTFOLIO%20PROJECT/project1/admin/project/projectAdd.php', '', 0),
+(2, 2, 'Graphic design1', 'http://localhost/PORTFOLIO%20PROJECT/project1/admin/project/projectAdd.php', '1656659077.png', 1),
+(3, 1, '122222', 'http://localhost/PORTFOLIO%20PROJECT/project1/admin/project/projectAdd.php', '1657114650.png', 1),
+(4, 2, 'Web design with PHP ', 'http://localhost/PORTFOLIO%20PROJECT/project1/admin/project/projectAdd.php', '1657114239.png', 1);
 
 --
 -- Indexes for dumped tables
@@ -140,7 +142,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
