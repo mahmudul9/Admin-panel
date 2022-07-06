@@ -181,7 +181,7 @@
 													<div class="kv-fileinput-error file-error-message" style="display: none;"></div>
 												</div>
 											</div>
-										</div>
+								</div>
 							
 								
 

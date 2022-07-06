@@ -121,7 +121,7 @@ else {
 							
 									<div class="alert alert-success no-border">
 											<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-											<span class="text-semibold">Success</span> <?php echo $_GET['msg']; ?>
+											<span class="text-semibold"></span> <?php echo $_GET['msg']; ?>
 										</div>
 								 
 								 <?php }  ?>
